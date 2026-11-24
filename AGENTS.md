@@ -18,7 +18,10 @@ None yet. The owner sets one; agents do not invent it.
 - Taste, naming and direction are Chris Wells's to rule. Agents propose; Chris Wells ratifies.
 - Decisions: never edit a ruled decision's text. Add a dated amendment, or supersede it with a new one. Follow the
   active decision; superseded ones are history only.
-- Work on a branch. Never push straight to the main branch without Chris Wells's approval.
+- Work on `main` and push only when a release is cut (Chris Wells, 2026-11-24: "just work on main and push for
+  releases"; `docs/bbq/2026-11-24-obsidian-plugin.md` Q17).
+- Push over HTTPS with this project's fine-grained personal access token; the project uses no deploy key. Never
+  write the token into the repository.
 - Keep `docs/` tidy: no loose dated files at its top level.
 
 <!-- pitmaster rules: plan, check, plain · catalogue 2026-10-23 · project-prep rewrites everything down to the end line -->

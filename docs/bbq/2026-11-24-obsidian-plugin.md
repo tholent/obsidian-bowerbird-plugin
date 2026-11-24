@@ -84,12 +84,16 @@ upstream code into this repository.
 
 **Q16 Hosting.** Chris Wells creates the public GitHub repository and sets up its keys or token. After that, the
 agent handles pushing. The agent never creates the repository itself.
+_2026-11-24, later the same day, Chris Wells:_ access is a fine-grained personal access token for this
+project, not a separate deploy key. The remote is HTTPS so git uses the token.
 
 **Q17 + ruling on pushing.** Chris Wells's words, given in answer to the follow-up on how Q16 and Q17 fit:
 "just work on main and push for releases". Commit straight to `main`, and push when a release is cut. Until the
 remote exists, commits stay local. This ruling is Chris Wells's approval, for this build, of the `AGENTS.md`
 ground rule "Never push straight to the main branch without Chris Wells's approval". It sets aside that file's
 "Work on a branch" rule for this build.
+_2026-11-24, later the same day, Chris Wells:_ `AGENTS.md`'s ground rules now say this for the whole project,
+so it no longer needs setting aside.
 
 **Q18 Installing tools.** Chris Wells installs `uv` and `bowerbird-mcp`. When the build reaches the integration
 tests, or needs the real CLI for anything else, it stops and asks Chris Wells to install them. It never installs
