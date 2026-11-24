@@ -1,0 +1,9 @@
+{
+	"id": "bowerbird",
+	"name": "Bowerbird",
+	"version": "0.1.0",
+	"minAppVersion": "1.14.4",
+	"description": "Search your notes, see which ones a person has reviewed, and lint their links, with bowerbird-mcp.",
+	"author": "Chris Wells",
+	"isDesktopOnly": true
+}
