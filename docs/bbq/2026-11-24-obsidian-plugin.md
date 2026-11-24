@@ -219,5 +219,8 @@ Facts found:
 - A passage's `line` is its heading's line plus blank lines after it (upstream note 3).
 - Each call to bowerbird-mcp took about 1.5 to 2 seconds on this machine (`npm run test:integration` timings).
 
+_2026-11-24, later the same day, Chris Wells:_ "yes, I installed uv and bowerbird-mcp and the repo is created and authed via pat". The
+remote is `https://github.com/tholent/obsidian-bowerbird-plugin.git`; `git ls-remote origin` reached it.
+
 Skipped: nothing in the Kickoff's order. Not done: a run in a live Obsidian vault (`docs/manual-test.md` is the
 script for it), and a release (it needs the remote, Q16).

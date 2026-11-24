@@ -17,9 +17,8 @@ The project's live state. Update it when work lands. Every claim cites at least 
 
 - Chris Wells: run the manual test in a throwaway vault (`docs/manual-test.md`).
 - Chris Wells: seal the repository's docs; `bowerbird-mcp seal check=true` lists 7 files lacking review (`bower.yaml`).
-- Chris Wells: create the public GitHub repository, then cut the first release, 0.1.0 (`manifest.json`, `.github/workflows/release.yml`, `docs/bbq/2026-11-24-obsidian-plugin.md`).
+- Cut the first release, 0.1.0, when Chris Wells says: push `main`, then tag it; the workflow makes a draft release (`manifest.json`, `.github/workflows/release.yml`).
 - Chris Wells: decide whether to file the upstream notes (`docs/upstream-notes.md`).
-- Open question, ask at the next session start: were `uv` and `bowerbird-mcp` installed at 12:49 by Chris Wells, as Q18 expects? (`docs/bbq/2026-11-24-obsidian-plugin.md`).
 
 ## Known debt
 
@@ -30,6 +29,7 @@ The project's live state. Update it when work lands. Every claim cites at least 
 ## Log
 
 - 2026-11-24: prepared with project-prep; ADR-001 drafted with makeadr and ratified (`docs/decisions/INDEX.md`); plugin v1 planned with bbq (`docs/bbq/2026-11-24-obsidian-plugin.md`).
+- 2026-11-24: Chris Wells confirmed he installed `uv` and `bowerbird-mcp`, and created the remote, github.com/tholent/obsidian-bowerbird-plugin, reached over HTTPS with the project's token; `git ls-remote` reached it, and nothing is pushed yet (`docs/bbq/2026-11-24-obsidian-plugin.md`).
 - 2026-11-24: plugin v1 built on main, 11 commits from the scaffold to the docs; integration tests run against bowerbird-mcp 2.3.0; repository made a bowerbird collection (`README.md`, `docs/upstream-notes.md`).
 
 ## How this file is kept

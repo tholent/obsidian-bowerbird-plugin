@@ -49,8 +49,8 @@ bowerbird-mcp the first time. If neither works, it says so once, with how to ins
 ### 2. The plugin, through BRAT
 
 1. In Obsidian, install the community plugin **BRAT** and turn it on.
-2. Run **BRAT: Plugins: Add a beta plugin for testing (with or without version)** and give it this repository's
-   address.
+2. Run **BRAT: Plugins: Add a beta plugin for testing (with or without version)** and give it
+   `https://github.com/tholent/obsidian-bowerbird-plugin`.
 3. Turn on **Bowerbird** in **Settings → Community plugins**.
 
 ### Or sideload it
