@@ -10,6 +10,7 @@ None yet. The owner sets one; agents do not invent it.
 
 ## Where things live
 - `STATUS.md` — where we are right now. Short. Update it at the end of each session.
+- `docs/bbq/` — question records (bbq) that plan a piece of work; each ends with the kickoff for its build.
 - `docs/decisions/` — decision records (ADRs), in the ADR+ format; its `INDEX.md` lists them.
 
 ## Ground rules

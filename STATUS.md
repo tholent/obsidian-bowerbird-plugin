@@ -11,7 +11,8 @@ The project's live state. Update it when work lands. Every claim cites at least 
 
 ## Next
 
-- Plan the first piece of plugin work (`AGENTS.md`).
+- Build the plugin's v1 from its plan; the kickoff is at the end of the record (`docs/bbq/2026-11-24-obsidian-plugin.md`).
+- Chris Wells: create the public GitHub repo, and install `uv` and `bowerbird-mcp` before integration tests (`docs/bbq/2026-11-24-obsidian-plugin.md`).
 
 ## Known debt
 
@@ -19,7 +20,7 @@ The project's live state. Update it when work lands. Every claim cites at least 
 
 ## Log
 
-- 2026-11-24: prepared with project-prep; ADR-001 drafted with makeadr and ratified (`docs/decisions/INDEX.md`).
+- 2026-11-24: prepared with project-prep; ADR-001 drafted with makeadr and ratified (`docs/decisions/INDEX.md`); plugin v1 planned with bbq (`docs/bbq/2026-11-24-obsidian-plugin.md`).
 
 ## How this file is kept
 
