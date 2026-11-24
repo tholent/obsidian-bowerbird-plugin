@@ -66,6 +66,10 @@ export class SetupModal extends Modal {
 			const ul = box.createEl('ul');
 			for (const f of plan.files) ul.createEl('li', { text: f });
 		}
+		if (plan.notes.length) {
+			const ul = box.createEl('ul');
+			for (const n of plan.notes) ul.createEl('li', { text: n });
+		}
 		const detail = plan.diff || (plan.files.length ? '' : plan.raw);
 		if (detail) {
 			const shown = detail.length > DIFF_SHOWN ? `${detail.slice(0, DIFF_SHOWN)}\n…` : detail;

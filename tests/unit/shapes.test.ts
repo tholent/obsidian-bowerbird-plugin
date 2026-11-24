@@ -104,4 +104,18 @@ describe('toCreated', () => {
 		expect(toCreated({ steps: ['bower.yaml'] }).raw).toBe('{\n  "steps": [\n    "bower.yaml"\n  ]\n}');
 		expect(toCreated({ template: 'markdown', file: 'n.md' }).files).toEqual(['n.md']);
 	});
+
+	it('reads what create would write (bowerbird-mcp 2.3.0)', () => {
+		const preview = {
+			agent: { file: 'BOWERBIRD.md', state: 'would write' },
+			mcp: 'written',
+			would_edit: {},
+			config: { files: ['bower.yaml', '.env', 'env.example', 'BOWERBIRD.md', '.mcp.json'], missing: [], gitignore: '.gitignore gets .env' },
+		};
+		expect(toCreated(preview)).toMatchObject({
+			files: ['bower.yaml', '.env', 'env.example', 'BOWERBIRD.md', '.mcp.json'],
+			diff: '',
+			notes: ['.gitignore gets .env'],
+		});
+	});
 });

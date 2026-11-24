@@ -90,15 +90,22 @@ export function toFacts(data: unknown): Fact[] {
 	});
 }
 
-/** The files a write tool changed (`edited`) or would change (`would_edit`), and its diff. */
+/** The files a write tool changed (`edited`) or would change (`would_edit`), and its diff. `create` names
+ * its files under `config.files`, and what it does to .gitignore under `config.gitignore`. */
 export function toCreated(data: unknown): Created {
 	const d = obj(data);
 	const files: string[] = [];
+	const add = (f: string) => {
+		if (f && !files.includes(f)) files.push(f);
+	};
 	for (const key of ['edited', 'would_edit']) {
 		for (const [bundle, names] of Object.entries(obj(d[key]))) {
-			for (const n of arr(names)) files.push(joinBundle(bundle, str(n)));
+			for (const n of arr(names)) add(joinBundle(bundle, str(n)));
 		}
 	}
-	if (files.length === 0 && d.file !== undefined) files.push(str(d.file));
-	return { files, diff: str(d.diff), raw: JSON.stringify(data, null, 2) ?? '' };
+	const config = obj(d.config);
+	for (const f of arr(config.files)) add(str(f));
+	if (files.length === 0 && d.file !== undefined) add(str(d.file));
+	const notes = typeof config.gitignore === 'string' ? [config.gitignore] : [];
+	return { files, diff: str(d.diff), notes, raw: JSON.stringify(data, null, 2) ?? '' };
 }
