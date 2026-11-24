@@ -1,6 +1,6 @@
 import path from 'path';
 import { describe, expect, it } from 'vitest';
-import { collectionRoot, joinBundle, toCollection, toVault, urlPath } from '../../src/paths';
+import { collectionRoot, joinBundle, newNotePath, toCollection, toVault, urlPath } from '../../src/paths';
 
 const posix = path.posix;
 const win = path.win32;
@@ -64,5 +64,22 @@ describe('urlPath', () => {
 	it('quotes each segment', () => {
 		expect(urlPath('My Notes/a b.md')).toBe('My%20Notes/a%20b.md');
 		expect(urlPath('notes/#1?.md')).toBe('notes/%231%3F.md');
+	});
+});
+
+describe('newNotePath', () => {
+	it('puts the note in the folder, with .md once', () => {
+		expect(newNotePath('notes', 'deploy')).toBe('notes/deploy.md');
+		expect(newNotePath('/notes/', 'deploy.md')).toBe('notes/deploy.md');
+		expect(newNotePath('', 'deploy')).toBe('deploy.md');
+		expect(newNotePath('a\\b', 'sub/c')).toBe('a/b/sub/c.md');
+		expect(newNotePath('notes', 'a b')).toBe('notes/a b.md');
+	});
+
+	it('refuses an empty name or one that climbs out', () => {
+		expect(newNotePath('notes', '  ')).toBeNull();
+		expect(newNotePath('notes', '.md')).toBeNull();
+		expect(newNotePath('notes', '../x')).toBeNull();
+		expect(newNotePath('notes', './x')).toBeNull();
 	});
 });

@@ -56,3 +56,20 @@ export function collectionRoot(setting: string, vault: string, home: string, rul
 export function urlPath(collectionPath: string): string {
 	return collectionPath.split('/').map(encodeURIComponent).join('/');
 }
+
+/** A vault path cleaned the way Obsidian's normalizePath cleans one: forward slashes, none doubled or at the ends. */
+export function cleanVaultPath(p: string): string {
+	return p
+		.replace(/\u00A0/g, ' ')
+		.replace(/[\\/]+/g, '/')
+		.replace(/^\/+|\/+$/g, '')
+		.normalize();
+}
+
+/** The vault path of a new note, from a folder and a name (.md added); null when the name is not usable. */
+export function newNotePath(folder: string, name: string): string | null {
+	const n = cleanVaultPath(name.trim()).replace(/\.md$/i, '');
+	if (!n || n.split('/').some((part) => part === '..' || part === '.')) return null;
+	const f = cleanVaultPath(folder.trim());
+	return f ? `${f}/${n}.md` : `${n}.md`;
+}

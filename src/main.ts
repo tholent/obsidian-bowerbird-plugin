@@ -11,6 +11,7 @@ import { BowerbirdSettingTab, BowerbirdSettings, DEFAULT_SETTINGS } from './sett
 import { CliTransport } from './transport/cli';
 import { nodeRunner } from './transport/node-runner';
 import { SealBadge } from './ui/badge';
+import { NewNoteModal } from './ui/new-note-modal';
 import { NOTE_VIEW, NoteFacts, NoteView } from './ui/note-view';
 import { SEARCH_VIEW, SearchView } from './ui/search-view';
 
@@ -54,6 +55,7 @@ export default class BowerbirdPlugin extends Plugin {
 		this.addCommand({ id: 'open-search', name: 'Search passages', callback: () => void this.openSearch() });
 		this.addCommand({ id: 'files-lacking-review', name: 'Files lacking review', callback: () => this.attempt(() => filesLackingReview(this)) });
 		this.addCommand({ id: 'open-note-panel', name: 'Open the note panel', callback: () => void this.openSide(NOTE_VIEW) });
+		this.addCommand({ id: 'new-note', name: 'New note from template', callback: () => new NewNoteModal(this.app, this).open() });
 		this.addCommand({ id: 'lint-vault', name: 'Lint the whole vault', callback: () => this.attempt(() => lintVault(this)) });
 		this.addActiveNoteCommand('open-in-serve', 'Open the active note in serve to seal', (p) => openInServe(this, p));
 		this.addActiveNoteCommand('copy-seal-command', 'Copy the terminal command to seal the active note', (p) => copySealCommand(this, p));
