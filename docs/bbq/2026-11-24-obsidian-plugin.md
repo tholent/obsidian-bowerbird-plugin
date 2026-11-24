@@ -180,3 +180,44 @@ Never write a seal (Q6). Done means:
 - the README and `docs/manual-test.md` are written;
 - `STATUS.md` is updated;
 - a two-line note says what was skipped and any risk.
+
+## Found during the build
+
+_2026-11-24, the build session (Opus 5.5, high effort). Added after the record; the rulings above are unchanged._
+
+The lead settled these without asking, inside the rulings. `veto:` any of them.
+
+- **The badge reads `list`.** The command line has no tool for one file's seal state; `page_state` is only behind
+  serve's `/_api/status`. The badge maps `list`'s `tier` and `stale` to sealed, sealed by a machine check, broken
+  seal or unsealed (`src/seal.ts`). It cannot say `derived`, or who sealed a note and when. Upstream note 1
+  (`docs/upstream-notes.md`).
+- **Refresh on focus.** Obsidian does not watch hidden files such as `.waxseals.yaml`, so a seal made in serve or
+  a terminal is noticed when the Obsidian window gets focus back. No polling.
+- **Semantic stays off.** Each call passes `BOWERBIRD_SEMANTIC=false` unless the setting **Allow search by meaning**
+  is on, so a vault with `semantic: true` cannot set off the model download through the plugin.
+- **`--config` always.** Each call passes `--config <collection>` and runs from the collection root, so a
+  `bower.yaml` above the vault is never picked up by accident.
+- **Serve on Windows.** `serve start` has no background mode there; the plugin starts it in the foreground,
+  detached.
+- **An allow-list of tools.** `src/transport/args.ts` lists each tool the plugin may run with its arguments:
+  `seal` only as `check=true`, `factcheck` only to list one file's facts, never `--attest` (Q6). Unit-tested.
+- **Settings** use Obsidian's declarative API; `minAppVersion` is 1.14.4, the `obsidian` type package of the day
+  (the app was at 1.15.1).
+- **vitest 3**, not 5: vitest 5 needs Node 22, and this machine has Node 20.19.2.
+- **The repository's `bower.yaml`** (Q19) was written by `create holds=markdown env=true`: `bower.yaml` and
+  `env.example` only, without `BOWERBIRD.md` or `.mcp.json`. `.bower/` (the search index) is git-ignored.
+- **The release workflow** is the sample plugin's: a pushed tag makes a draft GitHub release with the three files
+  (Q13).
+
+Facts found:
+
+- `uv` and `bowerbird-mcp` 2.3.0 (with the `serve` extra) were installed in `~/.local/bin` at 12:49–12:50 during
+  the session, by `uv tool install`; the lead ran no install (Q18). So the integration tests and the repository's
+  `bower.yaml` did not wait.
+- `create` names its files under `config.files`, not `would_edit`, and its preview says `"mcp": "written"` while
+  writing nothing (upstream note 2).
+- A passage's `line` is its heading's line plus blank lines after it (upstream note 3).
+- Each call to bowerbird-mcp took about 1.5 to 2 seconds on this machine (`npm run test:integration` timings).
+
+Skipped: nothing in the Kickoff's order. Not done: a run in a live Obsidian vault (`docs/manual-test.md` is the
+script for it), and a release (it needs the remote, Q16).
