@@ -3,7 +3,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { Bowerbird, BowerbirdError, UnavailableError } from './bowerbird';
-import { filesLackingReview } from './commands';
+import { filesLackingReview, lintVault } from './commands';
 import { copySealCommand, openInServe, stopServe } from './handoff';
 import { collectionRoot, toCollection, toVault } from './paths';
 import { SealIndex } from './seal-index';
@@ -11,6 +11,7 @@ import { BowerbirdSettingTab, BowerbirdSettings, DEFAULT_SETTINGS } from './sett
 import { CliTransport } from './transport/cli';
 import { nodeRunner } from './transport/node-runner';
 import { SealBadge } from './ui/badge';
+import { NOTE_VIEW, NoteFacts, NoteView } from './ui/note-view';
 import { SEARCH_VIEW, SearchView } from './ui/search-view';
 
 export default class BowerbirdPlugin extends Plugin {
@@ -21,6 +22,7 @@ export default class BowerbirdPlugin extends Plugin {
 	private toldUnavailable = false;
 	private toldVersion = false;
 	private badge!: SealBadge;
+	private notes = new Map<string, Promise<NoteFacts>>();
 
 	async onload() {
 		await this.loadSettings();
@@ -28,6 +30,7 @@ export default class BowerbirdPlugin extends Plugin {
 		this.seals = new SealIndex(() => this.bb());
 		this.badge = new SealBadge(this);
 		this.registerView(SEARCH_VIEW, (leaf) => new SearchView(leaf, this));
+		this.registerView(NOTE_VIEW, (leaf) => new NoteView(leaf, this));
 		this.addRibbonIcon('bird', 'Bowerbird search', () => void this.openSearch());
 
 		const refresh = debounce(() => void this.refreshAll(), 400, true);
@@ -50,6 +53,8 @@ export default class BowerbirdPlugin extends Plugin {
 
 		this.addCommand({ id: 'open-search', name: 'Search passages', callback: () => void this.openSearch() });
 		this.addCommand({ id: 'files-lacking-review', name: 'Files lacking review', callback: () => this.attempt(() => filesLackingReview(this)) });
+		this.addCommand({ id: 'open-note-panel', name: 'Open the note panel', callback: () => void this.openSide(NOTE_VIEW) });
+		this.addCommand({ id: 'lint-vault', name: 'Lint the whole vault', callback: () => this.attempt(() => lintVault(this)) });
 		this.addActiveNoteCommand('open-in-serve', 'Open the active note in serve to seal', (p) => openInServe(this, p));
 		this.addActiveNoteCommand('copy-seal-command', 'Copy the terminal command to seal the active note', (p) => copySealCommand(this, p));
 		this.addCommand({ id: 'stop-serve', name: 'Stop serve', callback: () => this.attempt(() => stopServe(this)) });
@@ -137,11 +142,35 @@ export default class BowerbirdPlugin extends Plugin {
 		this.toldUnavailable = false;
 		this.toldVersion = false;
 		this.seals?.invalidate();
+		this.notes.clear();
 	}
 
 	/** Drop what was read from bowerbird, so the next look asks again. */
 	forget(): void {
 		this.seals.invalidate();
+		this.notes.clear();
+	}
+
+	/** Lint, links and facts of one note, kept until something changes. */
+	aboutNote(file: TFile, collectionPath: string): Promise<NoteFacts> {
+		let p = this.notes.get(collectionPath);
+		if (!p) {
+			p = this.readNote(file, collectionPath);
+			this.notes.set(collectionPath, p);
+			p.catch(() => this.notes.delete(collectionPath));
+		}
+		return p;
+	}
+
+	private async readNote(file: TFile, collectionPath: string): Promise<NoteFacts> {
+		const bb = this.bb();
+		const text = await this.app.vault.cachedRead(file);
+		const [lint, links, facts] = await Promise.all([
+			bb.lint(collectionPath),
+			bb.links(collectionPath),
+			text.includes('[fact.') ? bb.facts(collectionPath) : Promise.resolve([]),
+		]);
+		return { lint, links, facts };
 	}
 
 	toCollection(vaultPath: string): string | null {
@@ -180,7 +209,11 @@ export default class BowerbirdPlugin extends Plugin {
 	}
 
 	async refreshAll(): Promise<void> {
-		await this.badge.refresh();
+		const views = this.app.workspace
+			.getLeavesOfType(NOTE_VIEW)
+			.map((l) => l.view)
+			.filter((v): v is NoteView => v instanceof NoteView);
+		await Promise.all([this.badge.refresh(), ...views.map((v) => v.refresh())]);
 	}
 
 	/** Open a view in the right sidebar, reusing one that is already open. */
