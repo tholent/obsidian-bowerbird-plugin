@@ -1,4 +1,4 @@
-import { debounce, FileSystemAdapter, MarkdownView, Notice, Plugin, TFile } from 'obsidian';
+import { debounce, FileSystemAdapter, MarkdownView, Notice, Plugin, TFile, WorkspaceLeaf } from 'obsidian';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -10,6 +10,7 @@ import { BowerbirdSettingTab, BowerbirdSettings, DEFAULT_SETTINGS } from './sett
 import { CliTransport } from './transport/cli';
 import { nodeRunner } from './transport/node-runner';
 import { SealBadge } from './ui/badge';
+import { SEARCH_VIEW, SearchView } from './ui/search-view';
 
 export default class BowerbirdPlugin extends Plugin {
 	settings!: BowerbirdSettings;
@@ -25,6 +26,8 @@ export default class BowerbirdPlugin extends Plugin {
 		this.addSettingTab(new BowerbirdSettingTab(this.app, this));
 		this.seals = new SealIndex(() => this.bb());
 		this.badge = new SealBadge(this);
+		this.registerView(SEARCH_VIEW, (leaf) => new SearchView(leaf, this));
+		this.addRibbonIcon('bird', 'Bowerbird search', () => void this.openSearch());
 
 		const refresh = debounce(() => void this.refreshAll(), 400, true);
 		const changed = debounce(
@@ -44,6 +47,7 @@ export default class BowerbirdPlugin extends Plugin {
 		// a seal made in serve or a terminal changes a hidden file Obsidian does not watch: look again on return
 		this.registerDomEvent(window, 'focus', changed);
 
+		this.addCommand({ id: 'open-search', name: 'Search passages', callback: () => void this.openSearch() });
 		this.addActiveNoteCommand('open-in-serve', 'Open the active note in serve to seal', (p) => openInServe(this, p));
 		this.addActiveNoteCommand('copy-seal-command', 'Copy the terminal command to seal the active note', (p) => copySealCommand(this, p));
 		this.addCommand({ id: 'stop-serve', name: 'Stop serve', callback: () => this.attempt(() => stopServe(this)) });
@@ -175,6 +179,24 @@ export default class BowerbirdPlugin extends Plugin {
 
 	async refreshAll(): Promise<void> {
 		await this.badge.refresh();
+	}
+
+	/** Open a view in the right sidebar, reusing one that is already open. */
+	async openSide(type: string): Promise<WorkspaceLeaf | null> {
+		const { workspace } = this.app;
+		let leaf: WorkspaceLeaf | null = workspace.getLeavesOfType(type)[0] ?? null;
+		if (!leaf) {
+			leaf = workspace.getRightLeaf(false);
+			if (!leaf) return null;
+			await leaf.setViewState({ type, active: true });
+		}
+		await workspace.revealLeaf(leaf);
+		return leaf;
+	}
+
+	async openSearch(): Promise<void> {
+		const leaf = await this.openSide(SEARCH_VIEW);
+		if (leaf?.view instanceof SearchView) leaf.view.focusInput();
 	}
 
 	setUpVault(): void {

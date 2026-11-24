@@ -47,3 +47,67 @@
 	white-space: pre-wrap;
 	word-break: break-all;
 }
+
+/* Search */
+.bowerbird-search-box {
+	margin-bottom: var(--size-4-2);
+}
+
+.bowerbird-quiet {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	margin-bottom: var(--size-4-2);
+}
+
+.bowerbird-gap {
+	padding: var(--size-4-2);
+	border-left: 3px solid var(--color-orange);
+	background-color: var(--background-secondary);
+	font-weight: var(--font-semibold);
+}
+
+.bowerbird-error {
+	color: var(--text-error);
+}
+
+.bowerbird-hit {
+	padding: var(--size-4-2) 0;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.bowerbird-hit-head {
+	font-weight: var(--font-semibold);
+}
+
+.bowerbird-heading {
+	color: var(--text-muted);
+	font-weight: var(--font-normal);
+}
+
+.bowerbird-hit-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-4-2);
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin: var(--size-2-1) 0;
+}
+
+.bowerbird-hit-text {
+	white-space: pre-wrap;
+	font-size: var(--font-ui-small);
+	user-select: text;
+}
+
+.bowerbird-tier-human-reviewed {
+	color: var(--color-green);
+}
+
+.bowerbird-tier-unverified,
+.bowerbird-stale {
+	color: var(--color-orange);
+}
+
+.bowerbird-file-outside {
+	color: var(--text-muted);
+}
