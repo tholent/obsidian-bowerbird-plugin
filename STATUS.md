@@ -6,21 +6,31 @@ The project's live state. Update it when work lands. Every claim cites at least 
 
 ## Now
 
-- Project prepared for agents with project-prep: the rules are in `AGENTS.md`.
-- First decision ratified: start with the smallest agent setup (`docs/decisions/ADR-001-start-with-the-smallest-agent-setup.md`).
+- Plugin v1 is built, all eight pieces of the Kickoff: seal badge and hand-off, search, files lacking review,
+  lint, links and facts, new note from template, and vault setup (`src/main.ts`, `docs/bbq/2026-11-24-obsidian-plugin.md`).
+- The plugin never seals: each tool it may run is listed with its arguments, and unit tests check it (`src/transport/args.ts`, `tests/unit/args.test.ts`).
+- Build and lint are clean; 69 unit tests pass (`npm test`) and 13 integration tests pass against bowerbird-mcp 2.3.0 (`npm run test:integration`, `tests/integration/cli.test.ts`).
+- Not yet run in a live Obsidian vault; the script for that is written (`docs/manual-test.md`).
+- This repository is a bowerbird collection (`format: markdown`); nothing in it is sealed yet (`bower.yaml`).
 
 ## Next
 
-- Build the plugin's v1 from its plan; the kickoff is at the end of the record (`docs/bbq/2026-11-24-obsidian-plugin.md`).
-- Chris Wells: create the public GitHub repo, and install `uv` and `bowerbird-mcp` before integration tests (`docs/bbq/2026-11-24-obsidian-plugin.md`).
+- Chris Wells: run the manual test in a throwaway vault (`docs/manual-test.md`).
+- Chris Wells: seal the repository's docs; `bowerbird-mcp seal check=true` lists 7 files lacking review (`bower.yaml`).
+- Chris Wells: create the public GitHub repository, then cut the first release, 0.1.0 (`manifest.json`, `.github/workflows/release.yml`, `docs/bbq/2026-11-24-obsidian-plugin.md`).
+- Chris Wells: decide whether to file the upstream notes (`docs/upstream-notes.md`).
+- Open question, ask at the next session start: were `uv` and `bowerbird-mcp` installed at 12:49 by Chris Wells, as Q18 expects? (`docs/bbq/2026-11-24-obsidian-plugin.md`).
 
 ## Known debt
 
+- The badge cannot show `derived`, or who sealed a note and when: the command line has no per-file seal tool (`docs/upstream-notes.md`).
+- Each bowerbird call starts a process, about 1.5 to 2 seconds; the badge re-reads the whole collection after each change (`src/seal-index.ts`).
 - No glossary yet, though the Plain words rules offer glossary entries (`AGENTS.md`).
 
 ## Log
 
 - 2026-11-24: prepared with project-prep; ADR-001 drafted with makeadr and ratified (`docs/decisions/INDEX.md`); plugin v1 planned with bbq (`docs/bbq/2026-11-24-obsidian-plugin.md`).
+- 2026-11-24: plugin v1 built on main, 11 commits from the scaffold to the docs; integration tests run against bowerbird-mcp 2.3.0; repository made a bowerbird collection (`README.md`, `docs/upstream-notes.md`).
 
 ## How this file is kept
 
