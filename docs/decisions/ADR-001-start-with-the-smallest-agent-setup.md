@@ -1,6 +1,8 @@
 ---
-status: proposed
-status-note: drafted 2026-11-24 from the user's words; awaiting ratification
+status: accepted
+status-note: ratified by Chris Wells on 2026-11-24
+ratified-by: Chris Wells
+ratified-on: "2026-11-24"
 owner: Chris Wells
 kind: process
 built: landed
@@ -36,3 +38,4 @@ add pieces only once they are needed.
 ## History
 
 - 2026-11-24: drafted by makeadr (light route) from the owner's answers, after project-prep set the project up.
+- 2026-11-24: ratified by Chris Wells. Earlier values: `status: proposed`; `status-note: drafted 2026-11-24 from the user's words; awaiting ratification`.

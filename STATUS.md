@@ -7,11 +7,11 @@ The project's live state. Update it when work lands. Every claim cites at least 
 ## Now
 
 - Project prepared for agents with project-prep: the rules are in `AGENTS.md`.
-- First decision drafted, awaiting Chris Wells's ratification (`docs/decisions/ADR-001-start-with-the-smallest-agent-setup.md`).
+- First decision ratified: start with the smallest agent setup (`docs/decisions/ADR-001-start-with-the-smallest-agent-setup.md`).
 
 ## Next
 
-- Ratify or amend ADR-001 (`docs/decisions/ADR-001-start-with-the-smallest-agent-setup.md`).
+- Plan the first piece of plugin work (`AGENTS.md`).
 
 ## Known debt
 
@@ -19,7 +19,7 @@ The project's live state. Update it when work lands. Every claim cites at least 
 
 ## Log
 
-- 2026-11-24: prepared with project-prep; ADR-001 drafted with makeadr (`docs/decisions/INDEX.md`).
+- 2026-11-24: prepared with project-prep; ADR-001 drafted with makeadr and ratified (`docs/decisions/INDEX.md`).
 
 ## How this file is kept
 

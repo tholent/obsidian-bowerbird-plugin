@@ -5,4 +5,4 @@ change the ADR and run the script again. An ADR's own header outranks this table
 
 | ADR | Decision | Kind | Status | Built |
 |---|---|---|---|---|
-| [ADR-001](ADR-001-start-with-the-smallest-agent-setup.md) | Start the project with pitmaster's smallest agent setup and grow it only when needed | process | proposed | landed |
+| [ADR-001](ADR-001-start-with-the-smallest-agent-setup.md) | Start the project with pitmaster's smallest agent setup and grow it only when needed | process | accepted | landed |
