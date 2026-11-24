@@ -73,6 +73,8 @@ export interface Created {
 	files: string[];
 	/** The diff, in a preview. */
 	diff: string;
+	/** Everything bowerbird answered, as text, for when files and diff do not say enough. */
+	raw: string;
 }
 
 export interface ServeResult {

@@ -100,5 +100,5 @@ export function toCreated(data: unknown): Created {
 		}
 	}
 	if (files.length === 0 && d.file !== undefined) files.push(str(d.file));
-	return { files, diff: str(d.diff) };
+	return { files, diff: str(d.diff), raw: JSON.stringify(data, null, 2) ?? '' };
 }

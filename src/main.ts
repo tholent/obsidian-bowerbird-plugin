@@ -13,6 +13,7 @@ import { nodeRunner } from './transport/node-runner';
 import { SealBadge } from './ui/badge';
 import { NewNoteModal } from './ui/new-note-modal';
 import { NOTE_VIEW, NoteFacts, NoteView } from './ui/note-view';
+import { SetupModal } from './ui/setup-modal';
 import { SEARCH_VIEW, SearchView } from './ui/search-view';
 
 export default class BowerbirdPlugin extends Plugin {
@@ -59,6 +60,7 @@ export default class BowerbirdPlugin extends Plugin {
 		this.addCommand({ id: 'lint-vault', name: 'Lint the whole vault', callback: () => this.attempt(() => lintVault(this)) });
 		this.addActiveNoteCommand('open-in-serve', 'Open the active note in serve to seal', (p) => openInServe(this, p));
 		this.addActiveNoteCommand('copy-seal-command', 'Copy the terminal command to seal the active note', (p) => copySealCommand(this, p));
+		this.addCommand({ id: 'set-up-vault', name: 'Set up this vault', callback: () => this.setUpVault() });
 		this.addCommand({ id: 'stop-serve', name: 'Stop serve', callback: () => this.attempt(() => stopServe(this)) });
 		this.addCommand({
 			id: 'check-setup',
@@ -236,8 +238,15 @@ export default class BowerbirdPlugin extends Plugin {
 		if (leaf?.view instanceof SearchView) leaf.view.focusInput();
 	}
 
+	/** Offer to make the vault a collection (bbq Q10). Only on the person's command. */
 	setUpVault(): void {
-		new Notice('Bowerbird: vault setup comes in a later step of this build.');
+		this.reset();
+		const root = this.collectionRoot();
+		if (root !== null) {
+			new Notice(`Bowerbird: this vault already has a collection, at ${root}.`);
+			return;
+		}
+		new SetupModal(this.app, this).open();
 	}
 
 	/** A command that acts on the active note's collection path. */

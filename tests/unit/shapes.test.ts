@@ -96,11 +96,12 @@ describe('toFacts', () => {
 
 describe('toCreated', () => {
 	it('lists the files a write changed or would change', () => {
-		expect(toCreated({ edited: { '.': ['notes/x.md', 'log.md'] }, next: 'review' })).toEqual({ files: ['notes/x.md', 'log.md'], diff: '' });
-		expect(toCreated({ would_edit: { docs: ['bower.yaml'] }, diff: '+format: obsidian' })).toEqual({
+		expect(toCreated({ edited: { '.': ['notes/x.md', 'log.md'] }, next: 'review' })).toMatchObject({ files: ['notes/x.md', 'log.md'], diff: '' });
+		expect(toCreated({ would_edit: { docs: ['bower.yaml'] }, diff: '+format: obsidian' })).toMatchObject({
 			files: ['docs/bower.yaml'],
 			diff: '+format: obsidian',
 		});
+		expect(toCreated({ steps: ['bower.yaml'] }).raw).toBe('{\n  "steps": [\n    "bower.yaml"\n  ]\n}');
 		expect(toCreated({ template: 'markdown', file: 'n.md' }).files).toEqual(['n.md']);
 	});
 });

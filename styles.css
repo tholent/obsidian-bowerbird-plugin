@@ -220,3 +220,15 @@
 .bowerbird-fact-checked .bowerbird-fact-status {
 	color: var(--color-green);
 }
+
+/* Vault setup */
+.bowerbird-setup-modal {
+	width: min(48em, 90vw);
+}
+
+.bowerbird-diff {
+	max-height: 40vh;
+	overflow: auto;
+	user-select: text;
+	font-size: var(--font-ui-smaller);
+}
