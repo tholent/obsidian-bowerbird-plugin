@@ -29,7 +29,7 @@ The project's live state. Update it when work lands. Every claim cites at least 
 ## Log
 
 - 2026-11-24: prepared with project-prep; ADR-001 drafted with makeadr and ratified (`docs/decisions/INDEX.md`); plugin v1 planned with bbq (`docs/bbq/2026-11-24-obsidian-plugin.md`).
-- 2026-11-24: Chris Wells confirmed he installed `uv` and `bowerbird-mcp`, and created the remote, github.com/tholent/obsidian-bowerbird-plugin, reached over HTTPS with the project's token; `git ls-remote` reached it, and nothing is pushed yet (`docs/bbq/2026-11-24-obsidian-plugin.md`).
+- 2026-11-24: Chris Wells confirmed installing `uv` and `bowerbird-mcp`, and creating the remote, github.com/tholent/obsidian-bowerbird-plugin, reached over HTTPS with the project's token; `git ls-remote` reached it, and nothing is pushed yet (`docs/bbq/2026-11-24-obsidian-plugin.md`).
 - 2026-11-24: plugin v1 built on main, 11 commits from the scaffold to the docs; integration tests run against bowerbird-mcp 2.3.0; repository made a bowerbird collection (`README.md`, `docs/upstream-notes.md`).
 
 ## How this file is kept
