@@ -3,6 +3,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { Bowerbird, BowerbirdError, UnavailableError } from './bowerbird';
+import { filesLackingReview } from './commands';
 import { copySealCommand, openInServe, stopServe } from './handoff';
 import { collectionRoot, toCollection, toVault } from './paths';
 import { SealIndex } from './seal-index';
@@ -48,6 +49,7 @@ export default class BowerbirdPlugin extends Plugin {
 		this.registerDomEvent(window, 'focus', changed);
 
 		this.addCommand({ id: 'open-search', name: 'Search passages', callback: () => void this.openSearch() });
+		this.addCommand({ id: 'files-lacking-review', name: 'Files lacking review', callback: () => this.attempt(() => filesLackingReview(this)) });
 		this.addActiveNoteCommand('open-in-serve', 'Open the active note in serve to seal', (p) => openInServe(this, p));
 		this.addActiveNoteCommand('copy-seal-command', 'Copy the terminal command to seal the active note', (p) => copySealCommand(this, p));
 		this.addCommand({ id: 'stop-serve', name: 'Stop serve', callback: () => this.attempt(() => stopServe(this)) });

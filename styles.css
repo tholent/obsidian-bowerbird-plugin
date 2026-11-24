@@ -111,3 +111,42 @@
 .bowerbird-file-outside {
 	color: var(--text-muted);
 }
+
+/* Findings: files lacking review, and lint */
+.bowerbird-findings-modal {
+	width: min(48em, 90vw);
+}
+
+.bowerbird-finding {
+	padding: var(--size-4-2) 0;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.bowerbird-finding-head {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-4-2);
+	align-items: baseline;
+}
+
+.bowerbird-kind {
+	font-weight: var(--font-semibold);
+}
+
+.bowerbird-severity-error .bowerbird-kind {
+	color: var(--text-error);
+}
+
+.bowerbird-severity-warning .bowerbird-kind {
+	color: var(--color-orange);
+}
+
+.bowerbird-finding-message,
+.bowerbird-finding-fix {
+	font-size: var(--font-ui-small);
+	user-select: text;
+}
+
+.bowerbird-finding-fix {
+	color: var(--text-muted);
+}
