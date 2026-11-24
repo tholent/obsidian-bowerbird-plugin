@@ -1,1 +1,49 @@
 /* Bowerbird: the seal badge, the search sidebar and the note panel. Colours come from Obsidian's own variables. */
+
+/* The seal badge: the state is shown prominently, in words and colour (bbq Q19). */
+.bowerbird-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--size-2-2);
+	font-weight: var(--font-semibold);
+}
+
+.bowerbird-badge-icon {
+	display: inline-flex;
+}
+
+.bowerbird-badge-icon svg {
+	width: var(--icon-xs);
+	height: var(--icon-xs);
+}
+
+.bowerbird-state-sealed {
+	color: var(--color-green);
+}
+
+.bowerbird-state-broken-seal {
+	color: var(--color-red);
+}
+
+.bowerbird-state-unsealed {
+	color: var(--color-orange);
+}
+
+.bowerbird-state-derived {
+	color: var(--color-blue);
+}
+
+.bowerbird-state-outside,
+.bowerbird-state-waiting {
+	color: var(--text-muted);
+}
+
+.bowerbird-state-trouble {
+	color: var(--text-error);
+}
+
+.bowerbird-command {
+	user-select: text;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
